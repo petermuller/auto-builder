@@ -70,7 +70,6 @@ source oe-init-build-env
 cp -v $TMPCURDIR/local.conf $BUILDDIR/conf/local.conf
 cp -v $TMPCURDIR/bblayers.conf $BUILDDIR/conf/bblayers.conf
 
-bitbake rpi-tarsals-image
-
 unset TMPCURDIR
 
+bitbake rpi-tarsals-image
