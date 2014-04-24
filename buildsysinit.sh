@@ -36,20 +36,20 @@ fi
 if ls | grep meta-sandwich; then
 	cd meta-sandwich && git pull origin master && cd ..
 else
-	git clone git@github.com:petermuller/meta-sandwich.git
+	git clone https://github.com/petermuller/meta-sandwich.git
 fi
 cp -v $TMPCURDIR/userinfo.txt meta-sandwich/recipes-extended/solsgen/files/data/
 
 if ls | grep meta-twitter; then
 	cd meta-twitter && git pull origin master && cd ..
 else
-	git clone git@github.com:petermuller/meta-twitter.git
+	git clone https://github.com/petermuller/meta-twitter.git
 fi
 
 if ls | grep meta-tarsals; then
 	cd meta-tarsals && git pull origin master && cd ..
 else
-	git clone git@github.com:petermuller/meta-tarsals.git
+	git clone https://github.com/petermuller/meta-tarsals.git
 fi
 
 cd oe-core
