@@ -59,6 +59,11 @@ else
 	git clone https://github.com/openembedded/bitbake.git
 fi
 
+if [[ -n "$WORKSPACE" ]]; then
+	unset HOME
+	export HOME="$WORKSPACE"
+fi
+
 #Update settings
 #BUILDDIR gets defined in the source command
 source oe-init-build-env
