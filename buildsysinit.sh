@@ -2,6 +2,7 @@
 
 #This should be equivalent to $WORKSPACE/builder in Jenkins
 export TMPCURDIR=$( cd "$( dirname "$0" )" && pwd )
+cp /tmp/userinfo.txt $TMPCURDIR
 
 cd $TMPCURDIR/..
 if ls | grep buildsys; then
