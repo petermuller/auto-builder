@@ -2,7 +2,6 @@
 
 #This should be equivalent to $WORKSPACE/builder in Jenkins
 export TMPCURDIR=$( cd "$( dirname "$0" )" && pwd )
-cp /tmp/userinfo.txt $TMPCURDIR
 
 cd $TMPCURDIR/..
 if ls | grep buildsys; then
@@ -33,13 +32,6 @@ else
 	git clone https://github.com/djwillis/meta-raspberrypi.git
 fi
 
-if ls | grep meta-sandwich; then
-	cd meta-sandwich && git pull origin master && cd ..
-else
-	git clone https://github.com/petermuller/meta-sandwich.git
-fi
-cp -v $TMPCURDIR/userinfo.txt meta-sandwich/recipes-extended/solsgen/files/data/
-
 if ls | grep meta-twitter; then
 	cd meta-twitter && git pull origin master && cd ..
 else
@@ -59,6 +51,7 @@ else
 	git clone https://github.com/openembedded/bitbake.git
 fi
 
+#For building in Jenkins
 if [[ -n "$WORKSPACE" ]]; then
 	unset HOME
 	export HOME="$WORKSPACE"
@@ -72,4 +65,4 @@ cp -v $TMPCURDIR/bblayers.conf $BUILDDIR/conf/bblayers.conf
 
 unset TMPCURDIR
 
-bitbake rpi-tarsals-image
+bitbake -k rpi-tarsals-image
