@@ -65,4 +65,4 @@ cp -v $TMPCURDIR/bblayers.conf $BUILDDIR/conf/bblayers.conf
 
 unset TMPCURDIR
 
-bitbake -k rpi-tarsals-image
+bitbake rpi-tarsals-image
