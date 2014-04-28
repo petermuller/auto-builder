@@ -1,5 +1,7 @@
 #!/bin/bash
 
+targets=("$@")
+
 #This should be equivalent to $WORKSPACE/builder in Jenkins
 export TMPCURDIR=$( cd "$( dirname "$0" )" && pwd )
 
@@ -65,4 +67,11 @@ cp -v $TMPCURDIR/bblayers.conf $BUILDDIR/conf/bblayers.conf
 
 unset TMPCURDIR
 
-bitbake rpi-tarsals-image
+for (( i=0; i<"$#"; i++ ))
+do
+	if [[ "${targets[i]}" == "clean" ]]; then
+		bitbake -c clean "${targets[i+1]}"
+	else
+		bitbake "${targets[i]}"
+	fi
+done
