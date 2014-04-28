@@ -55,6 +55,8 @@ else
 	git clone https://github.com/openembedded/bitbake.git
 fi
 
+echo $(pwd)
+
 #For building in Jenkins
 if [[ -n "$WORKSPACE" ]]; then
 	unset HOME
@@ -64,6 +66,7 @@ fi
 #Update settings
 #BUILDDIR gets defined in the source command
 source oe-init-build-env
+echo $(pwd)
 cp -v $TMPCURDIR/local.conf $BUILDDIR/conf/local.conf
 cp -v $TMPCURDIR/bblayers.conf $BUILDDIR/conf/bblayers.conf
 INITDIR=$BUILDDIR/..
@@ -71,6 +74,7 @@ INITDIR=$BUILDDIR/..
 for (( i=0; i<"$#"; i++ ))
 do
 	cd $INITDIR
+	echo $(pwd)
 	source oe-init-build-env
 	if [[ "${targets[i]}" == "clean" ]]; then
 		bitbake -c clean "${targets[i+1]}"
