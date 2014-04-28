@@ -3,9 +3,11 @@
 targets=("$@")
 
 #This should be equivalent to $WORKSPACE/builder in Jenkins
-export TMPCURDIR=$( cd "$( dirname "$0" )" && pwd )
+TMPCURDIR=$( cd "$( dirname "$0" )" && pwd )
+echo $TMPCURDIR
 
 cd $TMPCURDIR/..
+echo $(pwd)
 if ls | grep buildsys; then
 	echo "Build environment previously created. Updating..."
 else
@@ -65,8 +67,6 @@ source oe-init-build-env
 cp -v $TMPCURDIR/local.conf $BUILDDIR/conf/local.conf
 cp -v $TMPCURDIR/bblayers.conf $BUILDDIR/conf/bblayers.conf
 INITDIR=$BUILDDIR/..
-
-unset TMPCURDIR
 
 for (( i=0; i<"$#"; i++ ))
 do
