@@ -69,16 +69,18 @@ source oe-init-build-env
 echo $(pwd)
 cp -v $TMPCURDIR/local.conf $BUILDDIR/conf/local.conf
 cp -v $TMPCURDIR/bblayers.conf $BUILDDIR/conf/bblayers.conf
-INITDIR=$BUILDDIR/..
 
-for (( i=0; i<"$#"; i++ ))
-do
-	cd $INITDIR
-	echo $(pwd)
-	source oe-init-build-env
-	if [[ "${targets[i]}" == "clean" ]]; then
-		bitbake -c clean "${targets[i+1]}"
-	else
-		bitbake "${targets[i]}"
-	fi
+bitbake -c clean rpi-tarsals-image
+bitbake rpi-tarsals-image
+
+#for (( i=0; i<"$#"; i++ ))
+#do
+#	cd $INITDIR
+#	echo $(pwd)
+#	source oe-init-build-env
+#	if [[ "${targets[i]}" == "clean" ]]; then
+#		bitbake -c clean "${targets[i+1]}"
+#	else
+#		bitbake "${targets[i]}"
+#	fi
 done
