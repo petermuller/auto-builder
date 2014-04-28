@@ -7,7 +7,6 @@ TMPCURDIR=$( cd "$( dirname "$0" )" && pwd )
 echo $TMPCURDIR
 
 cd $TMPCURDIR/..
-echo $(pwd)
 if ls | grep buildsys; then
 	echo "Build environment previously created. Updating..."
 else
@@ -49,13 +48,12 @@ else
 fi
 
 cd oe-core
+COREDIR=$(pwd)
 if ls | grep bitbake; then
 	cd bitbake && git pull origin master && cd ..
 else
 	git clone https://github.com/openembedded/bitbake.git
 fi
-
-echo $(pwd)
 
 #For building in Jenkins
 if [[ -n "$WORKSPACE" ]]; then
@@ -66,21 +64,16 @@ fi
 #Update settings
 #BUILDDIR gets defined in the source command
 source oe-init-build-env
-echo $(pwd)
 cp -v $TMPCURDIR/local.conf $BUILDDIR/conf/local.conf
 cp -v $TMPCURDIR/bblayers.conf $BUILDDIR/conf/bblayers.conf
 
-bitbake -c clean rpi-tarsals-image
-bitbake rpi-tarsals-image
-
-#for (( i=0; i<"$#"; i++ ))
-#do
-#	cd $INITDIR
-#	echo $(pwd)
-#	source oe-init-build-env
-#	if [[ "${targets[i]}" == "clean" ]]; then
-#		bitbake -c clean "${targets[i+1]}"
-#	else
-#		bitbake "${targets[i]}"
-#	fi
+for (( i=0; i<"$#"; i++ ))
+do
+	cd $COREDIR
+	source oe-init-build-env
+	if [[ "${targets[i]}" == "clean" ]]; then
+		bitbake -c clean "${targets[i+1]}"
+	else
+		bitbake "${targets[i]}"
+	fi
 done
