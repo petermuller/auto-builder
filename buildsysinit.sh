@@ -66,14 +66,16 @@ fi
 source oe-init-build-env
 cp -v $TMPCURDIR/local.conf $BUILDDIR/conf/local.conf
 cp -v $TMPCURDIR/bblayers.conf $BUILDDIR/conf/bblayers.conf
+bitbake -c clean rpi-tarsals-image
 
-for (( i=0; i<"$#"; i++ ))
-do
-	cd $COREDIR
-	source oe-init-build-env
-	if [[ "${targets[i]}" == "clean" ]]; then
-		bitbake -c clean "${targets[i+1]}"
-	else
-		bitbake "${targets[i]}"
-	fi
-done
+
+#for (( i=0; i<"$#"; i++ ))
+#do
+#	cd $COREDIR
+#	source oe-init-build-env
+#	if [[ "${targets[i]}" == "clean" ]]; then
+#		bitbake -c clean "${targets[i+1]}"
+#	else
+#		bitbake "${targets[i]}"
+#	fi
+#done
