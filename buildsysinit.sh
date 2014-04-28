@@ -64,11 +64,14 @@ fi
 source oe-init-build-env
 cp -v $TMPCURDIR/local.conf $BUILDDIR/conf/local.conf
 cp -v $TMPCURDIR/bblayers.conf $BUILDDIR/conf/bblayers.conf
+INITDIR=$BUILDDIR/..
 
 unset TMPCURDIR
 
 for (( i=0; i<"$#"; i++ ))
 do
+	cd $INITDIR
+	source oe-init-build-env
 	if [[ "${targets[i]}" == "clean" ]]; then
 		bitbake -c clean "${targets[i+1]}"
 	else
