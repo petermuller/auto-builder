@@ -63,7 +63,15 @@ fi
 
 #Update settings
 #BUILDDIR gets defined in the source command
+
+#Figure out paths...
+echo "Debugging paths... Before source"
+echo "$TMPCURDIR"
+echo "$BUILDDIR"
 source oe-init-build-env
+echo "Debugging paths... After source"
+echo "$TMPCURDIR"
+echo "$BUILDDIR"
 cp -v $TMPCURDIR/local.conf $BUILDDIR/conf/local.conf
 cp -v $TMPCURDIR/bblayers.conf $BUILDDIR/conf/bblayers.conf
 bitbake -c clean rpi-tarsals-image
