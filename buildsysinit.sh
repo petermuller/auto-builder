@@ -1,7 +1,8 @@
 #!/bin/bash
 
 targets=("$@")
-shift $#
+numargs=$#
+shift $numargs
 
 #This should be equivalent to $WORKSPACE/builder in Jenkins
 TMPCURDIR=$( cd "$( dirname "$0" )" && pwd )
@@ -64,27 +65,17 @@ fi
 
 #Update settings
 #BUILDDIR gets defined in the source command
-
-#Figure out paths...
-echo "Debugging paths... Before source"
-echo "$TMPCURDIR"
-echo "$BUILDDIR"
 source oe-init-build-env
-echo "Debugging paths... After source"
-echo "$TMPCURDIR"
-echo "$BUILDDIR"
 cp -v $TMPCURDIR/local.conf $BUILDDIR/conf/local.conf
 cp -v $TMPCURDIR/bblayers.conf $BUILDDIR/conf/bblayers.conf
-bitbake -c clean rpi-tarsals-image
 
-
-#for (( i=0; i<"$#"; i++ ))
-#do
-#	cd $COREDIR
-#	source oe-init-build-env
-#	if [[ "${targets[i]}" == "clean" ]]; then
-#		bitbake -c clean "${targets[i+1]}"
-#	else
-#		bitbake "${targets[i]}"
-#	fi
-#done
+for (( i=0; i<$numargs; i++ ))
+do
+	cd $COREDIR
+	source oe-init-build-env
+	if [[ "${targets[i]}" == "clean" ]]; then
+		bitbake -c clean "${targets[i+1]}"
+	else
+		bitbake "${targets[i]}"
+	fi
+done
