@@ -1,6 +1,7 @@
 #!/bin/bash
 
 targets=("$@")
+shift $#
 
 #This should be equivalent to $WORKSPACE/builder in Jenkins
 TMPCURDIR=$( cd "$( dirname "$0" )" && pwd )
